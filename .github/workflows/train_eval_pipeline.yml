@@ -1,0 +1,51 @@
+﻿name: Train & Evaluate Model (Lab Pipeline)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  train_evaluate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Generate timestamp
+      id: set_timestamp
+      run: echo "timestamp=$(date '+%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+    - name: Train model
+      run: |
+        python src/train_model.py --timestamp "${{ steps.set_timestamp.outputs.timestamp }}"
+
+    - name: Evaluate model
+      run: |
+        python src/evaluate_model.py --timestamp "${{ steps.set_timestamp.outputs.timestamp }}"
+
+    - name: Ensure folders exist
+      run: |
+        mkdir -p models
+        mkdir -p metrics
+
+    - name: Commit & push artifacts
+      run: |
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "github-actions"
+        git add models/ metrics/
+        git commit -m "Auto model update @ ${{ steps.set_timestamp.outputs.timestamp }}" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
