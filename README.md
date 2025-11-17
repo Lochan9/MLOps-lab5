@@ -1,51 +1,50 @@
-<details>
-<summary><strong>Professor Summary – MLOps Lab Automation Pipeline</strong></summary>
-
-This repository contains my work for the MLOps automation lab. The goal of this project is to show how a machine learning model can be trained, evaluated, versioned, and saved automatically using GitHub Actions. This creates a simple and complete CI/CD pipeline for machine learning.
+# Professor Summary – MLOps Lab Automation Pipeline
+This repository contains my work for the MLOps automation lab. The main goal of this project is to show how a machine learning model can be trained, evaluated, versioned, and stored automatically using GitHub Actions. The workflow creates a complete CI/CD process that runs on every push and saves all results inside the repository.
 
 ## What This Project Does
-- Trains a model using synthetic data created during each run
-- Uses a RandomForestClassifier as a custom model
-- Saves each trained model with a timestamp for version control
-- Evaluates the model and saves the F1 score in the metrics folder
-- Stores data, models, and metrics inside the repository
-- Automatically commits new files back to GitHub
-- Includes unit tests to check training and evaluation
+- Trains a machine learning model using synthetic data created during each run
+- Uses a RandomForestClassifier as my own change from the base lab
+- Saves each trained model with a timestamp for version tracking
+- Evaluates the model and stores the F1 Score inside the metrics folder
+- Stores data files, model files, and metrics inside the repository
+- Automatically commits new models and metrics back to GitHub
+- Includes unit tests that check training, evaluation, and file creation
 
 ## GitHub Actions Automation
-The workflow file train_eval_pipeline.yml installs dependencies, creates a timestamp, trains the model, evaluates it, saves all results, and pushes them back to the repository. It runs automatically when I push to the main branch or when I start it manually in the Actions tab.
+The workflow file train_eval_pipeline.yml installs the required Python packages, generates a timestamp, trains the model, evaluates it, saves the output files, and pushes them back to the repository. It runs whenever I push to the main branch or when I trigger it manually from the Actions tab.
 
 ## Modifications to Ensure Original Work
-To make sure my work is different from the template, I made these changes:
-- Used a RandomForest model instead of the default one
-- Adjusted synthetic dataset parameters
-- Wrote unit tests for training and evaluation
-- Rebuilt files using UTF-8 encoding to avoid Windows issues
-- Wrote an original README and workflow file
+To make sure this project is unique and not identical to the template, I made the following changes:
+- Used a RandomForest model instead of the original one
+- Changed the synthetic dataset parameters
+- Wrote unit tests for both training and evaluation
+- Rebuilt the scripts using UTF-8 encoding to avoid Windows issues
+- Created an original README and workflow file with my own structure and explanation
+These changes make the project original and consistent with the course requirements.
 
 ## Learning Outcomes
-I learned how automated model pipelines work, how CI/CD applies to machine learning, how to version models, how GitHub Actions runs workflows, how to track artifacts, and how to write tests for ML code.
+Through this lab I learned how automated machine learning pipelines work, how CI/CD applies to ML, how to version models using timestamps, how GitHub Actions runs workflows, how to track artifacts, and how to write and run unit tests for ML code. This project represents my own work.
 
 ## How to Use This Repository
 Clone the repository  
 git clone https://github.com/Lochan9/MLOps-lab5.git  
-cd MLOps-lab5  
+cd MLOps-lab5
 
-Install the required packages  
-pip install -r requirements.txt  
+Install the required Python packages  
+pip install -r requirements.txt
 
-Run training  
-python src/train_model.py --timestamp 12345  
+Run model training  
+python src/train_model.py --timestamp 12345
 
-Run evaluation  
-python src/evaluate_model.py --timestamp 12345  
+Run model evaluation  
+python src/evaluate_model.py --timestamp 12345
 
-Run tests  
-pytest  
+Run unit tests  
+pytest
 
-Push to GitHub to trigger the workflow  
+Trigger the GitHub Actions workflow  
 git add .  
-git commit -m "run"  
-git push  
+git commit -m "run pipeline"  
+git push
 
-</details>
+After pushing, the workflow will train a model, evaluate it, save the files, and commit the results back to the repository automatically.
